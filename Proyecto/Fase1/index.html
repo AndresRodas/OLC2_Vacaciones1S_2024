@@ -281,11 +281,46 @@
             </div>
             <div class="col s12 m12 l6">
                 <ul class="tabs tabs-fixed-width  z-depth-5">
-                    <li class="tab"><a class="active" href="#console-tab"> Console </a></li>
+                    <li class="tab"><a href="#console-tab"> Console </a></li>
+                    <li class="tab"><a href="#error__table"> Error Table </a></li>
+                    <li class="tab"><a href="#cst"> CST </a></li>
                 </ul>
 
                 <div id="console-tab" class="col s12 tab__panel">
                     <textarea id="console__result"></textarea>
+                </div>
+    
+                <div id="error__table" class="col s12 tab__panel">
+                    <table id="errorTable" style="width: 100%">
+                          <thead>
+                            <tr>
+                                <th>Type of Error</th>
+                                <th>Description</th>
+                                <th>Row</th>
+                                <th>Column</th>
+                                <th>Datetime</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Type of Error</th>
+                                <th>Description</th>
+                                <th>Row</th>
+                                <th>Column</th>
+                                <th>Datetime</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+               
+                <div id="cst" class="col s12 tab__panel">
+                    <div class="tab__panel__btn">
+                        <a href="/graph" target="blank" class="waves-effect waves-light btn-large red" id="btn__showCST">
+                            <i class="material-icons right">timeline</i>
+                            Show CST 
+                        </a>
+                    </div>
                 </div>
 
             </div>
@@ -295,6 +330,8 @@
         <script src="parser.js"></script>
         <!-- ============================= SCRIPT ============================== -->
         <script src="script.js"></script>
+        <!-- ============================= CST ============================== -->
+        <script src="CST.js"></script>
         
     </body>
 </html>

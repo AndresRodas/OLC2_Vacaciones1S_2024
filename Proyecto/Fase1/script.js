@@ -1,6 +1,19 @@
 let errorTable, symbolTable, Arm64Editor, consoleResult, dotStringCst = "";
 
 $(document).ready(function () {
+
+    errorTable = newDataTable('#errorTable',
+        [{data: "Type of Error"}, {data: "Description"}, {data: "Row"}, {data: "Column"}, {data: "Datetime"}],
+        []);
+
+    symbolTable = newDataTable('#symbolTable',
+        [{data: "ID"}, {data: "SymType"}, {data: "DataType"}, {data: "Environment"}, {data: "Row"}, {data: "Column"}],
+        []);
+
+    $('.tabs').tabs();
+    $("select").formSelect();
+    $('.tooltipped').tooltip();
+
     Arm64Editor = editor('julia__editor', 'text/x-rustsrc');
     consoleResult = editor('console__result', '', false, true, false);
 });
@@ -67,13 +80,44 @@ const cleanEditor = (editor) => {
     editor.setValue("");
 }
 
+function isLexicalError(e) {
+    const validIdentifier = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/;
+    const validInteger = /^[0-9]+$/;
+    const validRegister = /^[a-zA-Z][0-9]+$/;
+    const validCharacter = /^[a-zA-Z0-9_$,\[\]#"]$/;
+  
+    if (e.found) {
+      if (!validIdentifier.test(e.found) && 
+          !validInteger.test(e.found) &&
+          !validRegister.test(e.found) &&
+          !validCharacter.test(e.found)) {
+        return true; // Error léxico
+      }
+    }
+  
+    return false; // Error sintáctico
+}
+
 const analysis = async () => {
     const text = Arm64Editor.getValue();
     try {
         let resultado = FASE1.parse(text);
-        consoleResult.setValue(resultado.toString());
-    } catch (error) {
-        consoleResult.setValue(error.message);
+        // consoleResult.setValue(resultado.toString());
+        console.log(resultado)
+        consoleResult.setValue("VALIDO");
+    } catch (e) {
+        console.log(FASE1)
+        if (e instanceof FASE1.SyntaxError) {
+            if (isLexicalError(e)) {
+                consoleResult.setValue('Error Léxico: ' + e.message);
+                console.log(e.message)
+            } else {
+                consoleResult.setValue('Error Sintáctico: ' + e.message);
+                console.log(e.message)
+            }
+        } else {
+            console.error('Error desconocido:', e);
+        }
     }
 }
 
@@ -98,5 +142,5 @@ const btnOpen = document.getElementById('btn__open'),
 btnOpen.addEventListener('click', () => openFile(Arm64Editor));
 btnSave.addEventListener('click', () => saveFile("file", "rs", Arm64Editor));
 btnClean.addEventListener('click', () => cleanEditor(Arm64Editor));
-// btnShowCst.addEventListener('click', () => localStorage.setItem("dot", dotStringCst));
+btnShowCst.addEventListener('click', () => localStorage.setItem("dot", dotStringCst));
 btnAnalysis.addEventListener('click', () => analysis());

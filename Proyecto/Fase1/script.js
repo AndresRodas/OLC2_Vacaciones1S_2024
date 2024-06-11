@@ -85,7 +85,6 @@ function isLexicalError(e) {
     const validInteger = /^[0-9]+$/;
     const validRegister = /^[a-zA-Z][0-9]+$/;
     const validCharacter = /^[a-zA-Z0-9_$,\[\]#"]$/;
-  
     if (e.found) {
       if (!validIdentifier.test(e.found) && 
           !validInteger.test(e.found) &&
@@ -94,7 +93,6 @@ function isLexicalError(e) {
         return true; // Error léxico
       }
     }
-  
     return false; // Error sintáctico
 }
 

@@ -3,6 +3,7 @@
     constructor() {
       this.text = [];
     }
+
     addNode(node) {
       this.text.push(node)
     }
@@ -34,7 +35,7 @@ TextSection
     ins.addNode('TextSection -> DosPuntos;')
     ins.addNode('TextSection -> Instructions;')
     return ins
-  }
+}
 
 Instructions
   = ins:Load
@@ -43,7 +44,10 @@ Instructions
     ins.addNode(`Instructions -> Arithmetic;`)
     return ins
   }
-  / ins:Logic
+  / ins:Logic {
+    ins.addNode(`Instructions -> Logic;`)
+    return ins
+  }
   / ins:Rotation
   / ins:Jumps
 
@@ -57,7 +61,7 @@ Store
 
 Arithmetic
   = "ADD" _ reg1:register COMA _ reg2:register COMA _ reg3:register {
-    let Cst = new CST('');
+    let Cst = new CST();
     Cst.addNode(`Arithmetic -> ADD;`)
     Cst.addNode(`Arithmetic -> ${reg1}1;`)
     Cst.addNode(`Arithmetic -> COMA1;`)

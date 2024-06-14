@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- ============================= MATERIALIZE ============================== -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <!-- ============================= MATERIAL ICONS ============================== -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- ============================= DATA TABLE ============================== -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+        <!-- ========================== JQUERY ============================ -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <!-- ========================== MATERIALIZE ============================ -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <!-- ============================= DATA TABLE ============================== -->
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+        <!-- Scripts for Codemirror -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"
+                integrity="sha512-xwrAU5yhWwdTvvmMNheFn9IyuDbl/Kyghz2J3wQRDR8tyNmT8ZIYOd0V3iPYY/g4XdNPy0n/g0NvqGu9f0fPJQ=="
+                crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/mode/simple.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/rust/rust.min.js"
+                integrity="sha512-g3Nhw36S0p4ZJQcky87D5M+vZbFvLrgsHWYltUy5IW0zKbvi8GlPRjJSo2CyUyQiU01Ier7u+rBABDs3BawKyQ=="
+                crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-- Styles for Codemirror -->
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css"
+            integrity="sha512-uf06llspW44/LZpHzHT6qBOIVODjWtv4MxCricRxkzvopAlSWnTf6hpZTFxuuZcuNE9CBQhqE0Seu1CoRk84nQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-- Theme moxer -->
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/moxer.min.css"
+            integrity="sha512-zrCGHGmTpiZpzVJ6BdiDfsUT6t8+oOKmOtfU82GhBo/7sk/cns7phhKXSWmGH6uACPqgjP8QmgczNBY7HMB9TQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <title>Proyecto Fase 1</title>
+        <!-- STYLE -->
+        <link rel="stylesheet" href="styles/style.css" type="text/css">
+    </head>
+    <body>
+        <a href="" id="download" style="display: none" download=""></a>
+        <div class="row">
+            <div class="col s12 m12 l6">
+                <nav>
+                    <div class="nav-wrapper">
+                        <ul id="nav-mobile" class="nav__options">
+                            <li>
+                                <button class="btn-floating waves-effect waves-circle waves-light red  tooltipped" data-position="bottom" data-tooltip="Open File" id="btn__open">
+                                    <i class="tiny material-icons"> cloud_upload </i>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="btn-floating waves-effect waves-circle waves-light red  tooltipped" data-position="bottom" data-tooltip="Save File" id="btn__save">
+                                    <i class="material-icons"> cloud_download </i>
+                                </button>
+                            </li>
+                        </ul>
+                        <div>
+                            <h3 class="title-editor">Fase 1 - OLC2</h3>
+                        </div>
+
+                        <ul id="nav-mobile" class="nav__options">
+                            <li>
+                                <button class="btn-floating waves-effect waves-circle waves-light red  tooltipped" data-position="bottom" data-tooltip="Analysis" id="btn__analysis">
+                                    <i class="material-icons"> play_arrow</i>
+                                </button>
+                            </li>
+
+                            <li>
+                                <button class="btn-floating waves-effect waves-circle waves-light red  tooltipped" data-position="bottom" data-tooltip="Clear Editor" id="btn__clean">
+                                    <i class="material-icons"> cleaning_services </i>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <div id="" class="julia__editor">
+                    <textarea id="julia__editor" class=""></textarea>
+                </div>
+            </div>
+            <div class="col s12 m12 l6">
+                <ul class="tabs tabs-fixed-width  z-depth-5">
+                    <li class="tab"><a href="#console-tab"> Console </a></li>
+                    <li class="tab"><a href="#error__table"> Error Table </a></li>
+                    <li class="tab"><a href="#cst"> CST </a></li>
+                </ul>
+
+                <div id="console-tab" class="col s12 tab__panel">
+                    <textarea id="console__result"></textarea>
+                </div>
+    
+                <div id="error__table" class="col s12 tab__panel">
+                    <table id="errorTable" style="width: 100%">
+                          <thead>
+                            <tr>
+                                <th>Type of Error</th>
+                                <th>Description</th>
+                                <th>Row</th>
+                                <th>Column</th>
+                                <th>Datetime</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Type of Error</th>
+                                <th>Description</th>
+                                <th>Row</th>
+                                <th>Column</th>
+                                <th>Datetime</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+               
+                <div id="cst" class="col s12 tab__panel">
+                    <div class="tab__panel__btn">
+                        <a href="/graph" target="blank" class="waves-effect waves-light btn-large red" id="btn__showCST">
+                            <i class="material-icons right">timeline</i>
+                            Show CST 
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+        <!-- ============================= PARSER ============================== -->
+        <script src="parser/parser.js"></script>
+        <!-- ============================= SCRIPT ============================== -->
+        <script src="main.js"></script>
+        <!-- ============================= CST ============================== -->
+        <script src="./interfaces/expression.js"></script>
+        <script src="./interfaces/instruction.js"></script>
+        <script src="./environment/ast.js"></script>
+        <script src="./environment/environment.js"></script>
+        <script src="./generator/generator.js"></script>
+        <script src="./generator/quadruples.js"></script>
+        <script src="./execute/executer.js"></script>
+        <script src="./execute/root.js"></script>
+        <script src="./execute/textSection.js"></script>
+        <!-- ============================= EXPRESSIONS ============================== -->
+        <script src="./expressions/operation.js"></script>
+        <!-- ============================= EXPRESSIONS ============================== -->
+        <script src="./instructions/systemCall.js"></script>
+    </body>
+</html>

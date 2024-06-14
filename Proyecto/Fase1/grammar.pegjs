@@ -108,12 +108,17 @@ integer "integer"
 
 ID
   = id:([a-zA-Z_$][a-zA-Z0-9_$]*) _ { 
-    console.log(id)
     return id; 
   }
 
 string "string"
   = "\"" chars:[^\"]* "\"" _ { return chars.join(""); }
 
+SimpleComment
+  = "//" (!EndComment .)* EndComment
+
+EndComment
+  = "\r" / "\n" / "\r\n"
+
 _ "whitespace"
-  = [ \t\n\r]*
+  = [ \t\n\r]* (SimpleComment [ \t\n\r]*)*

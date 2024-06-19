@@ -54,7 +54,6 @@ TextSection
   {
     let idInst = cst.newNode();
     newPath(idInst, ident, ins);
-    // cst.addNode(idInst, ident);
     let idRoot = cst.newNode();
     newPath(idRoot, 'TextSection', [{ id:idInst }]);
     return new TextSection(idRoot, 'TextSection', ident, ins);

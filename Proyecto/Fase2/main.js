@@ -128,23 +128,23 @@ const analysis = async () => {
 
 const generateCst = (CstObj) => {
     // Creando el arreglo de nodos
-    var nodes = new vis.DataSet(CstObj.Nodes);
+    let nodes = new vis.DataSet(CstObj.Nodes);
     // Creando el arreglo de conexiones
-    var edges = new vis.DataSet(CstObj.Edges);
+    let edges = new vis.DataSet(CstObj.Edges);
     // Obteniendo el elemento a imprimir
-    var container = document.getElementById('mynetwork');
+    let container = document.getElementById('mynetwork');
     // Agregando data y opciones
-    var data = {
+    let data = {
         nodes: nodes,
         edges: edges
     };
 
-    var options = {
+    let options = {
         layout: {
-        hierarchical: {
-            direction: "UD",
-            sortMethod: "directed",
-        },
+            hierarchical: {
+                direction: "UD",
+                sortMethod: "directed",
+            },
         },
         nodes: {
             shape: "box"

@@ -1,14 +1,10 @@
 
-let errorTable, symbolTable, Arm64Editor, consoleResult;
+let quadTable, symbolTable, Arm64Editor, consoleResult;
 
 $(document).ready(function () {
 
-    errorTable = newDataTable('#errorTable',
-        [{data: "Type of Error"}, {data: "Description"}, {data: "Row"}, {data: "Column"}, {data: "Datetime"}],
-        []);
-
-    symbolTable = newDataTable('#symbolTable',
-        [{data: "ID"}, {data: "SymType"}, {data: "DataType"}, {data: "Environment"}, {data: "Row"}, {data: "Column"}],
+    quadTable = newDataTable('#quadTable',
+        [{data: "Op"}, {data: "Arg1"}, {data: "Arg2"}, {data: "Arg3"}, {data: "Result"}],
         []);
 
     $('.tabs').tabs();
@@ -99,6 +95,7 @@ function isLexicalError(e) {
 
 const analysis = async () => {
     const text = Arm64Editor.getValue();
+    clearQuadTable();
     try {
         // Creando ast auxiliar
         let ast = new Ast();
@@ -112,6 +109,9 @@ const analysis = async () => {
         RootExecuter(result, ast, env, gen);
         // Generando gráfica
         generateCst(result.CstTree);
+        // Generando cuádruplos
+        addDataToQuadTable(gen.getQuadruples());
+        // Agregando salida válida en consola
         consoleResult.setValue("VALIDO");
     } catch (e) {
         if (e instanceof PEGGY.SyntaxError) {
@@ -124,6 +124,17 @@ const analysis = async () => {
             console.error('Error desconocido:', e);
         }
     }
+}
+
+// Función para agregar datos a la tabla de cuadruplos
+const addDataToQuadTable = (data) => {
+    for (let quad of data) {
+        quadTable.row.add(quad?.getQuadruple()).draw();
+    }
+}
+
+const clearQuadTable = () => {
+    quadTable.clear().draw();
 }
 
 const generateCst = (CstObj) => {

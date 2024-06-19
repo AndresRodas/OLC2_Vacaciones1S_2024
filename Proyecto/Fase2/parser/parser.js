@@ -286,7 +286,6 @@ function peg$parse(input, options) {
   var peg$f4 = function(ident, ins) {
     let idInst = cst.newNode();
     newPath(idInst, ident, ins);
-    // cst.addNode(idInst, ident);
     let idRoot = cst.newNode();
     newPath(idRoot, 'TextSection', [{ id:idInst }]);
     return new TextSection(idRoot, 'TextSection', ident, ins);
@@ -306,36 +305,43 @@ function peg$parse(input, options) {
   var peg$f8 = function(reg1, reg2, reg3) {
     const loc = location()?.start;
     const idRoot = cst.newNode();
-    return new Operation(loc?.line, loc?.column, idRoot, 'Arithmetic',  'sub', reg1.name, reg2.name, reg3.name, null);
+    newPath(idRoot, 'Arithmetic', ['sub', reg1, 'COMA', reg2, 'COMA', reg3]);
+    return new Operation(loc?.line, loc?.column, idRoot, 'Arithmetic', 'sub', reg1.name, reg2.name, reg3.name, null);
   };
   var peg$f9 = function(reg1, reg2, reg3) {
     const loc = location()?.start;
     const idRoot = cst.newNode();
-    return new Operation(loc?.line, loc?.column, idRoot, 'Arithmetic',  'mul', reg1.name, reg2.name, reg3.name, null);
+    newPath(idRoot, 'Arithmetic', ['mul', reg1, 'COMA', reg2, 'COMA', reg3]);
+    return new Operation(loc?.line, loc?.column, idRoot, 'Arithmetic', 'mul', reg1.name, reg2.name, reg3.name, null);
   };
   var peg$f10 = function(reg1, reg2, reg3) {
     const loc = location()?.start;
     const idRoot = cst.newNode();
-    return new Operation(loc?.line, loc?.column, idRoot, 'Arithmetic',  'udiv', reg1.name, reg2.name, reg3.name, null);
+    newPath(idRoot, 'Arithmetic', ['udiv', reg1, 'COMA', reg2, 'COMA', reg3]);
+    return new Operation(loc?.line, loc?.column, idRoot, 'Arithmetic', 'udiv', reg1.name, reg2.name, reg3.name, null);
   };
   var peg$f11 = function(reg1, reg2, reg3) {
     const loc = location()?.start;
     const idRoot = cst.newNode();
-    return new Operation(loc?.line, loc?.column, idRoot, 'Arithmetic',  'sdiv', reg1.name, reg2.name, reg3.name, null);
+    newPath(idRoot, 'Arithmetic', ['sdiv', reg1, 'COMA', reg2, 'COMA', reg3]);
+    return new Operation(loc?.line, loc?.column, idRoot, 'Arithmetic', 'sdiv', reg1.name, reg2.name, reg3.name, null);
   };
   var peg$f12 = function(reg1, reg2, reg3) {
     const loc = location()?.start;
     let idRoot = cst.newNode();
+    newPath(idRoot, 'Logic', ['and', reg1, 'COMA', reg2, 'COMA', reg3]);
     return new Operation(loc?.line, loc?.column, idRoot, 'Logic', 'and', reg1.name, reg2.name, reg3.name, null);
   };
   var peg$f13 = function(reg1, reg2, reg3) {
     const loc = location()?.start;
     let idRoot = cst.newNode();
+    newPath(idRoot, 'Logic', ['orr', reg1, 'COMA', reg2, 'COMA', reg3]);
     return new Operation(loc?.line, loc?.column, idRoot, 'Logic', 'orr', reg1.name, reg2.name, reg3.name, null);
   };
   var peg$f14 = function(reg1, reg2, reg3) {
     const loc = location()?.start;
     let idRoot = cst.newNode();
+    newPath(idRoot, 'Logic', ['eor', reg1, 'COMA', reg2, 'COMA', reg3]);
     return new Operation(loc?.line, loc?.column, idRoot, 'Logic', 'eor', reg1.name, reg2.name, reg3.name, null);
   };
   var peg$f15 = function(reg1, reg2) {

@@ -1,21 +1,24 @@
 class Quadruples {
-
-    constructor(line, col, op, arg1, arg2, arg3, res ) {
-        this.line = line;
-        this.col = col;
-        this.op = op;
-        this.arg1 = arg1;
-        this.arg2 = arg2;
-        this.arg3 = arg3;
-        this.res = res;
+    constructor() {
+        this.op = '-';
+        this.arg1 = '-';
+        this.arg2 = '-';
+        this.arg3 = '-';
+        this.res = '-';
     }
 
-    getQuad() {
-        return [this.op, this.arg1, this.arg2, this.arg3, this.res];
+    getQuadruple() {
+        return {
+            Op: this.op,
+            Arg1: this.arg1,
+            Arg2: this.arg2,
+            Arg3: this.arg3,
+            Result: this.res,
+        };
     }
 
     setOperator(op){
-        this.op = op;
+        if(op) this.op = op;
     }
 
     getOperator(){
@@ -23,7 +26,7 @@ class Quadruples {
     }
 
     setArg1(arg1){
-        this.arg1 = arg1;
+        if(arg1) this.arg1 = arg1;
     }
 
     getArg1(){
@@ -31,7 +34,7 @@ class Quadruples {
     }
 
     setArg2(arg2){
-        this.arg2 = arg2;
+        if(arg2) this.arg2 = arg2;
     }
 
     getArg2(){
@@ -39,7 +42,7 @@ class Quadruples {
     }
 
     setArg3(arg3){
-        this.arg3 = arg3;
+        if(arg3) this.arg3 = arg3;
     }
 
     getArg3(){
@@ -47,7 +50,7 @@ class Quadruples {
     }
 
     setResult(res){
-        this.res = res;
+        if(res) this.res = res;
     }
 
     getResult(){

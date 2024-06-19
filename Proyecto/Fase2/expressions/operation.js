@@ -6,14 +6,18 @@ class Operation extends Expression {
         this.col = col;
         this.id = id;
         this.name = name;
-        this.inst = inst;
-        this.op1 = op1;
-        this.op2 = op2;
-        this.op3 = op3;
-        this.op4 = op4;
+        this.inst = inst?.replace(/[\n\t\s]+/g, '');
+        this.op1 = op1?.replace(/[\n\t\s]+/g, '');
+        this.op2 = op2?.replace(/[\n\t\s]+/g, '');
+        this.op3 = op3?.replace(/[\n\t\s]+/g, '');
+        this.op4 = op4?.replace(/[\n\t\s]+/g, '');
     }
 
     execute(ast, env, gen) {
-        console.log(`Ejecutando una operación ${this.inst}`);
+        // Cuádruplos forma temporal 1
+        /* let temp = gen.newTemp();
+        gen.addQuadruple(this.inst, this.op1, this.op2, this.op3, temp); */
+        // Cúadruplos forma arm 2
+        gen.addQuadruple(this.inst, this.op2, this.op3, null, this.op1);
     }
 }

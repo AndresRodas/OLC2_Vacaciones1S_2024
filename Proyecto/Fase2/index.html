@@ -93,36 +93,12 @@
             <div class="col s12 m12 l6">
                 <ul class="tabs tabs-fixed-width  z-depth-5">
                     <li class="tab"><a href="#console-tab"> Console </a></li>
-                    <li class="tab"><a href="#error__table"> Error Table </a></li>
                     <li class="tab"><a href="#cst"> CST </a></li>
+                    <li class="tab"><a href="#quad__table"> Quadruples </a></li>
                 </ul>
 
                 <div id="console-tab" class="col s12 tab__panel">
                     <textarea id="console__result"></textarea>
-                </div>
-    
-                <div id="error__table" class="col s12 tab__panel">
-                    <table id="errorTable" style="width: 100%">
-                          <thead>
-                            <tr>
-                                <th>Type of Error</th>
-                                <th>Description</th>
-                                <th>Row</th>
-                                <th>Column</th>
-                                <th>Datetime</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Type of Error</th>
-                                <th>Description</th>
-                                <th>Row</th>
-                                <th>Column</th>
-                                <th>Datetime</th>
-                            </tr>
-                        </tfoot>
-                    </table>
                 </div>
                
                 <div id="cst" class="col s12 tab__panel">
@@ -131,6 +107,29 @@
                     </div>
                 </div>
 
+                <div id="quad__table" class="col s12 tab__panel">
+                    <table id="quadTable" style="width: 100%">
+                          <thead>
+                            <tr>
+                                <th>Op</th>
+                                <th>Arg1</th>
+                                <th>Arg2</th>
+                                <th>Arg3</th>
+                                <th>Result</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Op</th>
+                                <th>Arg1</th>
+                                <th>Arg2</th>
+                                <th>Arg3</th>
+                                <th>Result</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
             </div>
         </div>
         

@@ -37,6 +37,17 @@
         <title>Proyecto Fase 1</title>
         <!-- STYLE -->
         <link rel="stylesheet" href="styles/style.css" type="text/css">
+
+        <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+
+        <style type="text/css">
+            #mynetwork {
+                width: 600px;
+                height: 400px;
+                border: 1px solid lightgray;
+            }
+        </style>
+
     </head>
     <body>
         <a href="" id="download" style="display: none" download=""></a>
@@ -116,10 +127,7 @@
                
                 <div id="cst" class="col s12 tab__panel">
                     <div class="tab__panel__btn">
-                        <a href="/graph" target="blank" class="waves-effect waves-light btn-large red" id="btn__showCST">
-                            <i class="material-icons right">timeline</i>
-                            Show CST 
-                        </a>
+                        <div id="mynetwork"></div>
                     </div>
                 </div>
 
@@ -134,6 +142,7 @@
         <script src="./interfaces/expression.js"></script>
         <script src="./interfaces/instruction.js"></script>
         <script src="./environment/ast.js"></script>
+        <script src="./environment/cst.js"></script>
         <script src="./environment/environment.js"></script>
         <script src="./generator/generator.js"></script>
         <script src="./generator/quadruples.js"></script>

@@ -1,5 +1,5 @@
 
-let errorTable, symbolTable, Arm64Editor, consoleResult, dotStringCst = "";
+let errorTable, symbolTable, Arm64Editor, consoleResult;
 
 $(document).ready(function () {
 
@@ -110,7 +110,8 @@ const analysis = async () => {
         let result = PEGGY.parse(text);
         // Ejecutando instrucciones
         RootExecuter(result, ast, env, gen);
-        // consoleResult.setValue(result.toString());
+        // Generando gráfica
+        generateCst(result.CstTree);
         consoleResult.setValue("VALIDO");
     } catch (e) {
         if (e instanceof PEGGY.SyntaxError) {
@@ -123,6 +124,38 @@ const analysis = async () => {
             console.error('Error desconocido:', e);
         }
     }
+}
+
+const generateCst = (CstObj) => {
+    // Creando el arreglo de nodos
+    var nodes = new vis.DataSet(CstObj.Nodes);
+    // Creando el arreglo de conexiones
+    var edges = new vis.DataSet(CstObj.Edges);
+    // Obteniendo el elemento a imprimir
+    var container = document.getElementById('mynetwork');
+    // Agregando data y opciones
+    var data = {
+        nodes: nodes,
+        edges: edges
+    };
+
+    var options = {
+        layout: {
+        hierarchical: {
+            direction: "UD",
+            sortMethod: "directed",
+        },
+        },
+        nodes: {
+            shape: "box"
+        },
+        edges: { 
+            arrows: "to",
+        },
+    };
+
+    // Generando grafico red
+    let network = new vis.Network(container, data, options);
 }
 
 const newDataTable = (id, columns, data) => {
@@ -146,5 +179,4 @@ const btnOpen = document.getElementById('btn__open'),
 btnOpen.addEventListener('click', () => openFile(Arm64Editor));
 btnSave.addEventListener('click', () => saveFile("file", "rs", Arm64Editor));
 btnClean.addEventListener('click', () => cleanEditor(Arm64Editor));
-btnShowCst.addEventListener('click', () => localStorage.setItem("dot", dotStringCst));
 btnAnalysis.addEventListener('click', () => analysis());

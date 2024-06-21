@@ -11,6 +11,6 @@ class Primitive extends Expression {
 
     execute(ast, env, gen) {
         // Crear simbolo
-        return new Symbol(this.line, this.col, this.type, this.value)
+        return new Symbol(this.line, this.col, this.type, this.value);
     }
 }

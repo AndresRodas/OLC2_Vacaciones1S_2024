@@ -39,13 +39,13 @@ DataSection
   = ".section .data" _ dec:Declarations*
   {
     let idRoot = cst.newNode();
-    newPath(idRoot, 'DataSection', ['.section', '.data', dec]);
+    newPath(idRoot, 'DataSection', ['.section', '.data'].concat(dec));
     return { id: idRoot, value: dec};
   }
   / ".data" _ dec:Declarations*
   {
     let idRoot = cst.newNode();
-    newPath(idRoot, 'DataSection', ['.data', dec]);
+    newPath(idRoot, 'DataSection', ['.data'].concat(dec));
     return { id: idRoot, value: dec};
   }
 
@@ -158,14 +158,14 @@ Move
     const loc = location()?.start;
     const idRoot = cst.newNode();
     newPath(idRoot, 'Move', ['mov', reg1, 'COMA', reg2]);
-    return new Move(loc?.line, loc?.column, idRoot, reg1, reg2);
+    return new Move(loc?.line, loc?.column, idRoot, reg1.name, reg2.name);
   }
   / "mov" _ reg:register COMA _ int:integer
   {
     const loc = location()?.start;
     const idRoot = cst.newNode();
-    newPath(idRoot, 'Move', ['move', reg, 'COMA', int]);
-    return new Move(loc?.line, loc?.column, idRoot, reg, int);
+    newPath(idRoot, 'Move', ['mov', reg, 'COMA', int]);
+    return new Move(loc?.line, loc?.column, idRoot, reg.name, int);
   }
 
 Rotation
@@ -209,7 +209,7 @@ register
   = [a-zA-Z][0-9]+ _ 
   {
     let idRoot = cst.newNode(); 
-    newPath(idRoot, 'register', [text()]);
+    //newPath(idRoot, 'register', [text()]);
     return { id: idRoot, name: text() }
   }
 
@@ -225,7 +225,7 @@ primitive
   / int:integer { return int }
 
 integer "integer"
-  = _ [0-9]+
+  = _ [0-9]+ _
   {
     const loc = location()?.start;
     let idRoot = cst.newNode();

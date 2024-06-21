@@ -10,9 +10,14 @@ class Move extends Instruction {
     }
 
     execute(ast, env, gen) {
-        console.log(this.obj)
-        console.log(this.value)
-        console.log(ast.registers)
-        
+        let newValue
+        // Validar tipo de valor
+        if(this.value instanceof Expression) newValue = this.value?.execute(ast, env, gen);
+        else newValue = ast.registers?.getRegister(this.value);
+        // Validaciones
+        if (newValue === null) ast.setNewError({ msg: `El valor de asignación es incorrecto.`, line: this.line, col: this.col});
+        // Set register
+        let setReg = ast.registers?.setRegister(this.obj, newValue);
+        if (setReg === null) ast.setNewError({ msg: `El registro de destino es incorrecto.`, line: this.line, col: this.col});
     }
 }

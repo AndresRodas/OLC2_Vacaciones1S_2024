@@ -1,6 +1,6 @@
 class Ast {
     constructor() {
-        this.console = "";
+        this.console = "VALIDO";
         this.errors = [];
         this.registers = new Registers()
     }
@@ -9,4 +9,11 @@ class Ast {
         this.errors.push(err);
     }
 
+    getErrors(){
+        return this.errors;
+    }
+
+    getConsole(){
+        return this.console;
+    }
 }

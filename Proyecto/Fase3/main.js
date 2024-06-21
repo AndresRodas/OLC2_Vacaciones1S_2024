@@ -109,7 +109,6 @@ const analysis = async () => {
         let result = PEGGY.parse(text);
         // Guardando data (variables)
         DataSectionExecuter(result, ast, env, gen);
-        console.log(ast)
         // Ejecutando instrucciones
         RootExecuter(result, ast, env, gen);
         // Generando gráfica
@@ -117,7 +116,8 @@ const analysis = async () => {
         // Generando cuádruplos
         addDataToQuadTable(gen.getQuadruples());
         // Agregando salida válida en consola
-        consoleResult.setValue("VALIDO");
+        if (ast.getErrors()?.length === 0) consoleResult.setValue(ast.getConsole());
+        else consoleResult.setValue('Se encontraron algunos errores en la ejecución.');
     } catch (e) {
         if (e instanceof PEGGY.SyntaxError) {
             if (isLexicalError(e)) {

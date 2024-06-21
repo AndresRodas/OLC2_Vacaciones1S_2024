@@ -1,6 +1,6 @@
 class Registers {
     constructor() {
-        this.registers = new Array(31).fill(0);
+        this.registers = new Array(32).fill(0);
     }
 
     getRegister(registerIndex) {
@@ -30,7 +30,7 @@ class Registers {
             let regNumber = parseInt(registerIndex.replace('x', ''));
             // Establecer el valor de un registro específico
             if (regNumber >= 0 && regNumber < 32) {
-                this.registers[registerIndex] = value;
+                this.registers[regNumber] = value;
             } else {
                 return null;
             }
@@ -41,6 +41,10 @@ class Registers {
 
     getRegisterHexa(){
         //ToDo:
+    }
+
+    getAllRegisters(){
+        return this.registers;
     }
 
 }

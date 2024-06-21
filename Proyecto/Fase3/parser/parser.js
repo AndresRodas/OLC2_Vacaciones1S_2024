@@ -283,12 +283,12 @@ function peg$parse(input, options) {
   };
   var peg$f2 = function(dec) {
     let idRoot = cst.newNode();
-    newPath(idRoot, 'DataSection', ['.section', '.data', dec]);
+    newPath(idRoot, 'DataSection', ['.section', '.data'].concat(dec));
     return { id: idRoot, value: dec};
   };
   var peg$f3 = function(dec) {
     let idRoot = cst.newNode();
-    newPath(idRoot, 'DataSection', ['.data', dec]);
+    newPath(idRoot, 'DataSection', ['.data'].concat(dec));
     return { id: idRoot, value: dec};
   };
   var peg$f4 = function(ident, ins) {
@@ -365,13 +365,13 @@ function peg$parse(input, options) {
     const loc = location()?.start;
     const idRoot = cst.newNode();
     newPath(idRoot, 'Move', ['mov', reg1, 'COMA', reg2]);
-    return new Move(loc?.line, loc?.column, idRoot, reg1, reg2);
+    return new Move(loc?.line, loc?.column, idRoot, reg1.name, reg2.name);
   };
   var peg$f18 = function(reg, int) {
     const loc = location()?.start;
     const idRoot = cst.newNode();
-    newPath(idRoot, 'Move', ['move', reg, 'COMA', int]);
-    return new Move(loc?.line, loc?.column, idRoot, reg, int);
+    newPath(idRoot, 'Move', ['mov', reg, 'COMA', int]);
+    return new Move(loc?.line, loc?.column, idRoot, reg.name, int);
   };
   var peg$f19 = function(id, type, exp) {
     const loc = location()?.start;
@@ -396,7 +396,7 @@ function peg$parse(input, options) {
   };
   var peg$f23 = function() {
     let idRoot = cst.newNode(); 
-    newPath(idRoot, 'register', [text()]);
+    //newPath(idRoot, 'register', [text()]);
     return { id: idRoot, name: text() }
   };
   var peg$f24 = function(id) {
@@ -1989,6 +1989,7 @@ function peg$parse(input, options) {
       s2 = peg$FAILED;
     }
     if (s2 !== peg$FAILED) {
+      s3 = peg$parse_();
       peg$savedPos = s0;
       s0 = peg$f27();
     } else {

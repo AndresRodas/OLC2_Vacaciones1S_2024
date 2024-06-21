@@ -109,6 +109,7 @@ const analysis = async () => {
         let result = PEGGY.parse(text);
         // Guardando data (variables)
         DataSectionExecuter(result, ast, env, gen);
+        console.log(ast)
         // Ejecutando instrucciones
         RootExecuter(result, ast, env, gen);
         // Generando gráfica

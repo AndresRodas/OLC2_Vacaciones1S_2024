@@ -19,8 +19,8 @@
 Start
   = gs:GlobalSection _? ds1:DataSection? _? ts:TextSection _? ds2:DataSection? {
     let dataSectionConcat = []
-    if (ds1 != null) dataSectionConcat = dataSectionConcat.concat(ds1);
-    if (ds2 != null) dataSectionConcat = dataSectionConcat.concat(ds2);
+    if (ds1 != null) dataSectionConcat = dataSectionConcat.concat(ds1.value);
+    if (ds2 != null) dataSectionConcat = dataSectionConcat.concat(ds2.value);
     // Agregando raiz cst
     let idRoot = cst.newNode();
     newPath(idRoot, 'Start', [gs, ds1, ts, ds2]);
@@ -62,6 +62,10 @@ TextSection
 Instructions
   = ins:Load
   / ins:Store
+  / ins:Move
+  {
+    return ins;
+  }
   / ins:Arithmetic 
   {
     return ins;
@@ -148,6 +152,22 @@ Logic
     return new Operation(loc?.line, loc?.column, idRoot, 'Logic', 'mvn', reg1.name, reg2.name, null, null);
   }
 
+Move
+  = "mov" _ reg1:register COMA _ reg2:register
+  {
+    const loc = location()?.start;
+    const idRoot = cst.newNode();
+    newPath(idRoot, 'Move', ['mov', reg1, 'COMA', reg2]);
+    return new Move(loc?.line, loc?.column, idRoot, reg1, reg2);
+  }
+  / "mov" _ reg:register COMA _ int:integer
+  {
+    const loc = location()?.start;
+    const idRoot = cst.newNode();
+    newPath(idRoot, 'Move', ['move', reg, 'COMA', int]);
+    return new Move(loc?.line, loc?.column, idRoot, reg, int);
+  }
+
 Rotation
   = "lsl" _ reg1:register COMA _ reg2:register COMA _ "#" _ integer
   / "lsr" _ reg1:register COMA _ reg2:register COMA _ "#" _ integer
@@ -162,7 +182,7 @@ Declarations
     const loc = location()?.start;
     let idRoot = cst.newNode();
     newPath(idRoot, 'Declaration', [id, ":", type, exp]);
-    return new Declaration(loc?.line, loc?.column, idRoot, id, type, exp);
+    return new Declaration(loc?.line, loc?.column, idRoot, id, type.value, exp);
   }
 
 TYPE

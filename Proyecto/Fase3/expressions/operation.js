@@ -16,7 +16,5 @@ class Operation extends Expression {
     execute(ast, env, gen) {
         // Cúadruplos
         gen.addQuadruple(this.inst, this.op2, this.op3, null, this.op1);
-        console.log(env.table)
-
     }
 }

@@ -101,10 +101,8 @@ const analysis = async () => {
     try {
         let resultado = FASE1.parse(text);
         // consoleResult.setValue(resultado.toString());
-        console.log(resultado)
         consoleResult.setValue("VALIDO");
     } catch (e) {
-        console.log(FASE1)
         if (e instanceof FASE1.SyntaxError) {
             if (isLexicalError(e)) {
                 consoleResult.setValue('Error Léxico: ' + e.message);

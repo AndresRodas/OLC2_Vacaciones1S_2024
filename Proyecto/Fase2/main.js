@@ -1,5 +1,5 @@
 
-let quadTable, symbolTable, Arm64Editor, consoleResult;
+let quadTable, symbolTable, Arm64Editor, consoleResult, generalTime;
 
 $(document).ready(function () {
 
@@ -94,6 +94,8 @@ function isLexicalError(e) {
 }
 
 const analysis = async () => {
+    // ****************** Tiempo inicial
+    const start = performance.now();
     const text = Arm64Editor.getValue();
     clearQuadTable();
     try {
@@ -124,6 +126,14 @@ const analysis = async () => {
             console.error('Error desconocido:', e);
         }
     }
+    // ****************** Tiempo final
+    const end = performance.now();
+    generalTime = (end - start).toFixed(2);
+    // Mostrar mensaje en pantalla
+    mostrarToast(`
+        <span><i class="material-icons left">access_time</i>
+            Tiempo de ejecución: ${generalTime} ms.
+        </span>`, 5000, 'rounded red');
 }
 
 // Función para agregar datos a la tabla de cuadruplos
@@ -136,6 +146,12 @@ const addDataToQuadTable = (data) => {
 const clearQuadTable = () => {
     quadTable.clear().draw();
 }
+
+// Función para mostrar un toast
+function mostrarToast(mensaje, duracion, type) {
+    M.toast({html: mensaje, displayLength: duracion, classes: type});
+}
+
 
 const generateCst = (CstObj) => {
     // Creando el arreglo de nodos

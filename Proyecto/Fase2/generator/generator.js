@@ -1,9 +1,8 @@
 class Generator {
-
     constructor() {
         this.code = '';
         this.temporal = 0;
-        this.quadruples = [];
+        this.quadruples = [];  // Aquí se almacenan los cuádruplos
     }
 
     newTemp(){
@@ -28,6 +27,4 @@ class Generator {
     getQuadruples(){
         return this.quadruples;
     }
-
-
 }

@@ -15,7 +15,11 @@ class Declaration extends Instruction {
         let sym = this.exp.execute(ast, env, gen);
         // Validar tipo
         if(this.type !== sym?.type){
-            ast.setNewError({ msg: `El tipo de dato de ${this.name} es incorrecto.`, line: this.line, col: this.col});
+            ast.setNewError({ 
+                msg: `El tipo de dato de ${this.name} es incorrecto.`, 
+                line: this.line,
+                col: this.col
+            });
             return;
         }
         // Guardar en entorno

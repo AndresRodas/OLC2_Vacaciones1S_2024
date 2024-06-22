@@ -396,7 +396,7 @@ function peg$parse(input, options) {
   };
   var peg$f23 = function() {
     let idRoot = cst.newNode(); 
-    //newPath(idRoot, 'register', [text()]);
+    newPath(idRoot, 'register', [text()]);
     return { id: idRoot, name: text() }
   };
   var peg$f24 = function(id) {

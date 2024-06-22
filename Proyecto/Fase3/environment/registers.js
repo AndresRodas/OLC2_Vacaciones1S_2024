@@ -46,5 +46,4 @@ class Registers {
     getAllRegisters(){
         return this.registers;
     }
-
 }

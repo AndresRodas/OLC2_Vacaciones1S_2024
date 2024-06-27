@@ -3,4 +3,5 @@ const Type = {
     SPACE: 'space',
     SKIP: 'skip',
     WORD: 'word',
+    NULL: 'null',
 };

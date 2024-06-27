@@ -61,6 +61,9 @@ TextSection
 
 Instructions
   = ins:Load
+  {
+    return ins;
+  }
   / ins:Store
   / ins:Move
   {
@@ -74,13 +77,22 @@ Instructions
   {
     return ins;
   }
-  / ins:Rotation
-  / ins:Jumps
+  / ins:SystemCall
 
 Load
-  = "ldr" _ reg1:register COMA _ CIZQ reg2:register CDER
-  / "ldrb" _ reg1:register COMA _ CIZQ reg2:register CDER
-  / "ldp" _ reg1:register COMA _ reg2:register COMA _ CIZQ reg3:register CDER
+  = ldr:LDR
+  {
+    return ldr;
+  }
+
+LDR
+  = "ldr" _ reg:register COMA _ "=" id:ID
+  {
+    const loc = location()?.start;
+    let idRoot = cst.newNode();
+    newPath(idRoot, 'Load', ['ldr', reg, ',', id]);
+    return new Ldr(loc?.line, loc?.column, idRoot, reg.name, id); 
+  }
 
 Store
   = "str" _ reg1:register COMA _ CIZQ reg2:register CDER
@@ -168,13 +180,16 @@ Move
     return new Move(loc?.line, loc?.column, idRoot, reg.name, int);
   }
 
-Rotation
-  = "lsl" _ reg1:register COMA _ reg2:register COMA _ "#" _ integer
-  / "lsr" _ reg1:register COMA _ reg2:register COMA _ "#" _ integer
 
-Jumps
-  = "b" _ ID
-  / "bl" _ ID
+
+SystemCall
+  = "svc" _ int:integer 
+  {
+    const loc = location()?.start;
+    let idRoot = cst.newNode();
+    newPath(idRoot, 'SystemCall', ["svc", int]);
+    return new SystemCall(loc?.line, loc?.column, idRoot, int);
+  }
 
 Declarations
   = id:ID ":" _ "." _ type:TYPE _ exp:primitive

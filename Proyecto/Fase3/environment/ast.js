@@ -1,8 +1,12 @@
 class Ast {
     constructor() {
-        this.console = "VALIDO";
+        this.console = "";
         this.errors = [];
         this.registers = new Registers()
+    }
+
+    setConsole(str){
+        this.console += str;
     }
 
     setNewError(err){

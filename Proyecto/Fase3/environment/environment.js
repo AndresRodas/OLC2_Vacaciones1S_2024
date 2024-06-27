@@ -14,4 +14,20 @@ class Environment {
         this.table[id] = symbol;
     }
 
+    getVariable(ast, line, col, id) {
+        let tmpEnv = this;
+        while (true) {
+            if (id in tmpEnv.table) {
+                return tmpEnv.table[id];
+            }
+            if (tmpEnv.previous === null) {
+                break;
+            } else {
+                tmpEnv = tmpEnv.previous;
+            }
+        }
+        ast.setNewError({ msg: `La variable ${id} no existe.`, line, col});
+        return new Symbol(0, 0, Type.NULL, null);
+    }
+
 }

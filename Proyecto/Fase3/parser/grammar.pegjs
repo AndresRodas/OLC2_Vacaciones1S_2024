@@ -207,6 +207,12 @@ TYPE
     newPath(idRoot, 'TYPE', ['asciz']);
     return { id: idRoot, value: Type.ASCIZ }
   }
+  / "ascii"
+  {
+    let idRoot = cst.newNode();
+    newPath(idRoot, 'TYPE', ['ascii']);
+    return { id: idRoot, value: Type.ASCIZ }
+  }
   / "space"
   {
     let idRoot = cst.newNode();
@@ -245,7 +251,7 @@ integer "integer"
     const loc = location()?.start;
     let idRoot = cst.newNode();
     newPath(idRoot, 'integer', [text()]);
-    return new Primitive(loc?.line, loc?.column, idRoot, Type.WORD, parseInt(text(), 10));
+    return new Primitive(loc?.line, loc?.column, idRoot, 'integer', Type.SPACE, parseInt(text(), 10));
   }
 
 string "string"
@@ -254,7 +260,7 @@ string "string"
     const loc = location()?.start;
     let idRoot = cst.newNode();
     newPath(idRoot, 'string', [chars.join('')]);
-    return new Primitive(loc?.line, loc?.column, idRoot, Type.ASCIZ, chars.join(''));
+    return new Primitive(loc?.line, loc?.column, idRoot, 'string', Type.ASCIZ, chars.join(''));
   }
 
 /********** LEXER **********/

@@ -40,7 +40,11 @@ class Registers {
     }
 
     getRegisterHexa(){
-        //ToDo:
+        let hexaArr = []
+        for (let i = 0; i < this.registers.length; i++) {
+            hexaArr.push({Register: `X${i}`, Data: this.registers[i]?.value?.toString(16) ?? '0x000000'});
+        }
+        return hexaArr;
     }
 
     getAllRegisters(){

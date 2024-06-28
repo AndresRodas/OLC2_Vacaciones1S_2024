@@ -50,6 +50,24 @@
 
     </head>
     <body>
+
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h4>Ingrese un valor:</h4>
+                <form id="modalForm">
+                    <div class="input-field">
+                        <input id="modal_input_value" type="text" class="validate">
+                        <label for="modal_input_value">Input</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-close btn waves-effect waves-light" type="submit" form="modalForm" name="action">Enviar
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </div>
+    
         <a href="" id="download" style="display: none" download=""></a>
         <div class="row">
             <div class="col s12 m12 l6">
@@ -95,6 +113,7 @@
                     <li class="tab"><a href="#console-tab"> Console </a></li>
                     <li class="tab"><a href="#cst"> CST </a></li>
                     <li class="tab"><a href="#quad__table"> Quadruples </a></li>
+                    <li class="tab"><a href="#data__table"> Data </a></li>
                 </ul>
 
                 <div id="console-tab" class="col s12 tab__panel">
@@ -126,6 +145,24 @@
                                 <th>Arg2</th>
                                 <th>Arg3</th>
                                 <th>Result</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div id="data__table" class="col s12 tab__panel">
+                    <table id="dataTable" style="width: 100%">
+                          <thead>
+                            <tr>
+                                <th>Register</th>
+                                <th>Data</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Register</th>
+                                <th>Data</th>
                             </tr>
                         </tfoot>
                     </table>

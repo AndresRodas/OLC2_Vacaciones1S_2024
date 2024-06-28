@@ -26,8 +26,25 @@ class Environment {
                 tmpEnv = tmpEnv.previous;
             }
         }
-        ast.setNewError({ msg: `La variable ${id} no existe.`, line, col});
-        return new Symbol(0, 0, Type.NULL, null);
+        ast?.setNewError({ msg: `La variable ${id} no existe.`, line, col});
+        return new Symbol(0, 0, '', Type.NULL, null);
+    }
+
+    setVariable(ast, line, col, id, sym) {
+        let tmpEnv = this;
+        while (true) {
+            if (id in tmpEnv.table) {
+                tmpEnv.table[id] = sym;
+                return sym;
+            }
+            if (tmpEnv.previous === null) {
+                break;
+            } else {
+                tmpEnv = tmpEnv.previous;
+            }
+        }
+        ast?.setNewError({ msg: `La variable ${id} no existe.`, line, col});
+        return new Symbol(0, 0, '', Type.NULL, null);
     }
 
 }

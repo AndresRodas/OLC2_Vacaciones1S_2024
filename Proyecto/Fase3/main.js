@@ -1,10 +1,14 @@
 
-let quadTable, symbolTable, Arm64Editor, consoleResult;
+let quadTable, dataTable, symbolTable, Arm64Editor, consoleResult, modalInstance;
 
 $(document).ready(function () {
 
     quadTable = newDataTable('#quadTable',
         [{data: "Op"}, {data: "Arg1"}, {data: "Arg2"}, {data: "Arg3"}, {data: "Result"}],
+        []);
+    
+    dataTable = newDataTable('#dataTable',
+        [{data: "Register"}, {data: "Data"}],
         []);
 
     $('.tabs').tabs();
@@ -13,7 +17,37 @@ $(document).ready(function () {
 
     Arm64Editor = editor('julia__editor', 'text/x-rustsrc');
     consoleResult = editor('console__result', '', false, true, false);
+    
+    // Inicializar los modales
+    let elems = document.querySelectorAll('.modal');
+    M.Modal.init(elems);
+    
+    // Obtener la instancia del modal
+    modalInstance = M.Modal.getInstance(document.getElementById('modal1'));
+
 });
+
+function handleSubmit() {
+    return new Promise((resolve, reject) => {
+        document.getElementById('modalForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const inputValue = document.getElementById('modal_input_value').value;
+            document.getElementById('modal_input_value').value = '';
+            M.updateTextFields();
+            modalInstance.close();
+            resolve(inputValue);
+        }, { once: true });
+    });
+}
+
+window.openModal = function() {
+    modalInstance.open();
+    return handleSubmit();
+};
+
+window.closeModal = function() {
+    modalInstance.close();
+};
 
 function editor(id, language, lineNumbers = true, readOnly = false, styleActiveLine = true) {
     return CodeMirror.fromTextArea(document.getElementById(id), {
@@ -108,13 +142,15 @@ const analysis = async () => {
         // Obteniendo raiz del árbol
         let result = PEGGY.parse(text);
         // Guardando data (variables)
-        DataSectionExecuter(result, ast, env, gen);
+        await DataSectionExecuter(result, ast, env, gen);
         // Ejecutando instrucciones
-        RootExecuter(result, ast, env, gen);
+        await RootExecuter(result, ast, env, gen);
         // Generando gráfica
         generateCst(result.CstTree);
         // Generando cuádruplos
         addDataToQuadTable(gen.getQuadruples());
+        // Generando data
+        addDataTable(ast.registers?.getRegisterHexa());
         // Agregando salida válida en consola
         if (ast.getErrors()?.length === 0) consoleResult.setValue(ast.getConsole());
         else consoleResult.setValue('Se encontraron algunos errores en la ejecución.');
@@ -143,6 +179,13 @@ const analysis = async () => {
 const addDataToQuadTable = (data) => {
     for (let quad of data) {
         quadTable.row.add(quad?.getQuadruple()).draw();
+    }
+}
+
+// Función para agregar dataos
+const addDataTable = (data) => {
+    for (let da of data) {
+        dataTable.row.add(da).draw();
     }
 }
 
@@ -209,4 +252,4 @@ const btnOpen = document.getElementById('btn__open'),
 btnOpen.addEventListener('click', () => openFile(Arm64Editor));
 btnSave.addEventListener('click', () => saveFile("file", "rs", Arm64Editor));
 btnClean.addEventListener('click', () => cleanEditor(Arm64Editor));
-btnAnalysis.addEventListener('click', () => analysis());
+btnAnalysis.addEventListener('click', async () => await analysis());

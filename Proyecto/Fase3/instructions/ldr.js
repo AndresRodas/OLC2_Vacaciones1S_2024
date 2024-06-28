@@ -15,6 +15,7 @@ class Ldr extends Instruction {
         // Validando retorno
         if (newValue.type === Type.NULL) return;
         // Set register
+        newValue.id = this.variable;
         let setReg = ast.registers?.setRegister(this.reg, newValue);
         if (setReg === null) ast.setNewError({ msg: `El registro de destino es incorrecto.`, line: this.line, col: this.col});
     }

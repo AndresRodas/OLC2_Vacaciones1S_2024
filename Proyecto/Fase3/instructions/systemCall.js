@@ -21,7 +21,7 @@ class SystemCall extends Instruction {
     async stdin(ast, env, gen) { // Entrada estándar
         let regtemp8 = ast?.registers?.getRegister('x8');
         // Validar número de llamada al sistema
-        if(regtemp8.value === 63) { // read
+        if(regtemp8.value === 63){ // read
             // realizando una lectura en el sistema
             const stdInputText = await window.openModal();
             const idBuffer = ast?.registers?.getRegister('x1')?.id;
@@ -32,10 +32,9 @@ class SystemCall extends Instruction {
             for (let i = 0; i < length.value; i++) {
                 sym.value += stdInputText[i] ?? '0';
             }
-            console.log(sym)
             // Guardando la data obtenida
             env.setVariable(ast, this.line, this.col, idBuffer, sym)
-        } 
+        }
     }
 
     async stdout(ast, env, gen){ // Salida estándar 
